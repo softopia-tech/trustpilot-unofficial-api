@@ -1,0 +1,43 @@
+{
+    "name": "softopia/trustpilot-unofficial-api",
+    "description": "Unofficial Trustpilot Api to fetch reviews and trust score",
+    "keywords": [
+        "softopia",
+        "trustpilot-unofficial-api"
+    ],
+    "homepage": "https://github.com/softopia/trustpilot-unofficial-api",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ravi",
+            "email": "softopia.tk@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "fabpot/goutte": "^4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0",
+    },
+    "autoload": {
+        "psr-4": {
+            "Softopia\\TrustApi\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Softopia\\TrustApi\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
