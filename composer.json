@@ -1,11 +1,11 @@
 {
     "name": "softopia/trustpilot-unofficial-api",
-    "description": "Unofficial Trustpilot Api to fetch reviews and trust score",
+    "description": "Unofficial Trustpilot Api to fetch reviews and trust score.",
     "keywords": [
         "softopia",
         "trustpilot-unofficial-api"
     ],
-    "homepage": "https://github.com/softopia/trustpilot-unofficial-api",
+    "homepage": "https://github.com/softopia-tech/trustpilot-unofficial-api",
     "license": "MIT",
     "type": "library",
     "authors": [
