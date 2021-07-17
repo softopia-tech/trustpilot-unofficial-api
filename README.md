@@ -1,9 +1,5 @@
-# Unofficial Trustpilot Api For PHP
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/softopia/trustpilot-unofficial-api.svg?style=flat-square)](https://packagist.org/packages/softopia/trustpilot-unofficial-api)
-[![Build Status](https://img.shields.io/travis/softopia/trustpilot-unofficial-api/master.svg?style=flat-square)](https://travis-ci.org/softopia/trustpilot-unofficial-api)
-[![Quality Score](https://img.shields.io/scrutinizer/g/softopia/trustpilot-unofficial-api.svg?style=flat-square)](https://scrutinizer-ci.com/g/softopia/trustpilot-unofficial-api)
-[![Total Downloads](https://img.shields.io/packagist/dt/softopia/trustpilot-unofficial-api.svg?style=flat-square)](https://packagist.org/packages/softopia/trustpilot-unofficial-api)
+# Unofficial Trustpilot Api For PHP
 
 Unofficial Trustpilot Api to fetch reviews and trust score.
 
@@ -16,25 +12,51 @@ composer require softopia/trustpilot-unofficial-api
 ```
 
 ## Usage
-
 ``` php
-// Usage description here
+//create an instance
+$trust = new TrustApi('example.com');
+
+//get average rating
+$trust->getRating();
+
+//get reviews count
+$trust->getReviewsCount();
+
+//get All reviews (max 600 reviews or you can say 30 pages)
+$trust->getAllReviews($wantJson = true); //false if you want array back
+```
+## Response Format
+```json
+[
+  {
+    "reviewId": "xxxxxxxxxxx",
+    "reviewUrl": "https://www.trustpilot.com/reviews/xxxxxxxxxxxx",
+    "rating": 5,
+    "reviewTitle": "Nice work",
+    "reviewBody": "Nice work!!!!",
+    "customer": {
+      "id": "xxcxcxcxc",
+      "name": "Nice name",
+      "image": "https://user-images.trustpilot.com/xxxxxxxxx/73x73.png"
+    }
+  },
+  {....},
+  {....},
+  .
+  .
+  .
+  {....}
+]
 ```
 
 ### Testing
-
 ``` bash
-composer test
+//TODO
 ```
-
-### Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
-
 
 ## Credits
 
-- [Ravi](https://github.com/softopia)
+- [Ravi](https://github.com/softopia-tech)
 - [All Contributors](../../contributors)
 
 ## License
