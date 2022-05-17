@@ -15,6 +15,7 @@ class TrustApi
     private $mainpage      = null;
     const REVIEWS_PER_PAGE = 20;
     const REVIEWS_URL      = 'https://www.trustpilot.com/review/';
+    const SINGLE_REVIEW_URL      = 'https://www.trustpilot.com/reviews/';
     public $url;
 
     /**
@@ -45,8 +46,8 @@ class TrustApi
     public function loadFirstPage()
     {
         $this->mainpage      = $this->getPageContent($this->url);
-        $this->totalreviews  = str_replace(',', '', $this->mainpage->filter('.headline__review-count')->text());
-        $this->averagerating = $this->mainpage->filter('.header_trustscore')->text();
+        $this->totalreviews  = str_replace(',', '', $this->mainpage->filter('[data-reviews-count-typography]')->text());
+        $this->averagerating = $this->mainpage->filter('[data-rating-typography]')->text();
         $this->totalpages    = ceil($this->totalreviews / self::REVIEWS_PER_PAGE);
         $this->totalpages    = $this->totalpages > 30 ? 30 : $this->totalpages; //max 30 pages
     }
@@ -85,7 +86,7 @@ class TrustApi
         }
         for ($i = 1; $i <= $this->getTotalPages(); $i++) {
             $data  = $this->getPageContent($this->url . '?page=' . $i);
-            $nodes = $data->filter('.review-card');
+            $nodes = $data->filter('#__NEXT_DATA__');
             yield $nodes->each(function ($node, $i) {
                 return json_decode($node->filter('script')->text(), true);
             });
@@ -111,6 +112,7 @@ class TrustApi
     {
         $allreviews = [];
         foreach ($this->scrapeReviews() as $reviewsAry) {
+            $reviewsAry = $reviewsAry[0]['props']['pageProps']['reviews'];
             foreach ($reviewsAry as $review) {
                 array_push($allreviews, $this->formatReview($review));
             }
@@ -138,15 +140,15 @@ class TrustApi
     private function formatReview(array $review): array
     {
         return [
-            'reviewId'    => $review['reviewId'],
-            'reviewUrl'   => $review['socialShareUrl'],
-            'rating'      => $review['stars'],
-            'reviewTitle' => $review['reviewHeader'],
-            'reviewBody'  => $review['reviewBody'],
+            'reviewId'    => $review['id'],
+            'reviewUrl'   => self::SINGLE_REVIEW_URL.'/'.$review['id'],
+            'rating'      => $review['rating'],
+            'reviewTitle' => $review['title'],
+            'reviewBody'  => $review['text'],
             'customer'    => [
-                'id'    => $review['consumerId'],
-                'name'  => $review['consumerName'],
-                'image' => $review['consumerProfileImage'],
+                'id'    => $review['consumer']['id'],
+                'name'  => $review['consumer']['displayName'],
+                'image' => $review['consumer']['imageUrl'],
             ],
 
         ];
