@@ -13,6 +13,9 @@ composer require softopia/trustpilot-unofficial-api
 
 ## Usage
 ``` php
+//use namespace
+use Softopia\TrustApi\TrustApi;
+
 //create an instance
 $trust = new TrustApi('example.com');
 
@@ -39,13 +42,7 @@ $trust->getAllReviews($wantJson = true); //false if you want array back
       "name": "Nice name",
       "image": "https://user-images.trustpilot.com/xxxxxxxxx/73x73.png"
     }
-  },
-  {....},
-  {....},
-  .
-  .
-  .
-  {....}
+  }
 ]
 ```
 
